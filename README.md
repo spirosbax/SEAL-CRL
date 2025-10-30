@@ -1,6 +1,4 @@
-# Causality Research with BISCUIT-VAE
-
-A research codebase for causal representation learning and analysis on iTHOR data using BISCUIT-VAE encodings.
+# SEAL: Sample-Efficient Alignment of Abstract Concepts
 
 ## Installation
 
