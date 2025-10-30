@@ -91,6 +91,7 @@ archive/
 configs/
 results/
 outfiles/
+src/causality/data/
 
 # files
 'Sample-Efficient Alignment of High-Level Concepts: a Causal Representation Learning Approach.pdf'
