@@ -21,10 +21,6 @@ wheels/
 .ipynb_checkpoints/
 *.ipynb_checkpoints
 
-# Results and outputs
-results/
-outfiles/
-
 # Data (large files)
 src/data/ithor/train/
 src/data/ithor/val/
@@ -37,12 +33,15 @@ src/data/ithor/nf_encodings/
 
 # Environment
 .env
-.venv
+.venv/
 env/
 venv/
 ENV/
 env.bak/
 venv.bak/
+
+# UV package manager
+.venv/
 
 # IDEs and editors
 .vscode/
@@ -86,3 +85,12 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
+# folders
+notebooks/
+archive/
+configs/
+results/
+outfiles/
+
+# files
+'Sample-Efficient Alignment of High-Level Concepts: a Causal Representation Learning Approach.pdf'

@@ -1,0 +1,72 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "causality"
+version = "0.1.0"
+description = "Causality research with BISCUIT-VAE models"
+authors = [{name = "Spiros Baxevanakis"}]
+requires-python = ">=3.9"
+readme = "README.md"
+license = {text = "MIT"}
+
+dependencies = [
+    # Core scientific computing
+    "numpy>=2.0.1",
+    "scipy>=1.13.1",
+    "pandas>=2.3.0",
+    "matplotlib>=3.9.4",
+    "seaborn>=0.13.2",
+    
+    # Machine learning
+    "scikit-learn>=1.0.0",
+    "torch>=2.4.1",
+    "torchvision>=0.19.1",
+    "torchaudio>=2.4.1",
+    "pytorch-lightning>=2.5.2",
+    "torchmetrics>=1.7.3",
+    
+    # Optimization and hyperparameter tuning
+    "optuna>=4.4.0",
+    
+    # Computer vision and simulation
+    "opencv-python>=4.11.0.86",
+    "ai2thor>=5.0.0",
+    "imageio>=2.37.0",
+    
+    # Utilities
+    "tqdm>=4.67.1",
+    "click>=8.1.8",
+    "pyyaml>=6.0.2",
+    "cloudpickle>=3.1.1",
+    
+    # Additional dependencies from environment.yml
+    "absl-py>=2.3.0",
+    "protobuf>=6.31.1",
+    "grpcio>=1.73.1",
+    "tensorboard>=2.19.0",
+    "psutil>=7.0.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "jupyter>=1.0.0",
+    "ipykernel>=6.0.0",
+    "pytest>=8.4.1",
+]
+
+cuda = [
+    # PyTorch with CUDA support
+    # Note: Requires system CUDA 11.8 libraries installed
+    # Install with: uv pip install -e ".[cuda]"
+    "torch>=2.4.1",
+    "torchvision>=0.19.1", 
+    "torchaudio>=2.4.1",
+]
+
+[tool.setuptools]
+packages = {find = {where = ["src"]}}
+
+[tool.setuptools.package-dir]
+"" = "src"

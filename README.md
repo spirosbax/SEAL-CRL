@@ -4,7 +4,13 @@ A research codebase for causal representation learning and analysis on iTHOR dat
 
 ## Installation
 
-### 1) Clone repositories
+Choose between **UV (modern, fast)** or **Conda (traditional)**:
+
+### Option A: UV (Recommended - Modern & Fast)
+
+UV is a blazing-fast Python package manager (10-100x faster than pip/conda).
+
+**1) Clone repositories**
 ```bash
 git clone https://github.com/spirosbax/causality.git
 cd causality
@@ -12,24 +18,86 @@ cd causality
 # External dependencies
 mkdir -p external
 cd external
-# BISCUIT
 git clone https://github.com/phlippe/BISCUIT
-# Sample-efficient learning of concepts
 git clone https://github.com/spirosbax/sample-efficient-learning-of-concepts
 cd ..
 ```
 
-### 2) Environment
+**2) Install UV**
 ```bash
-conda env create -f environment.yml
+# Linux/macOS
+curl -LsSf https://astral.sh/uv/install.sh | sh
+
+# Windows
+powershell -c "irm https://astral.sh/uv/install.ps1 | iex"
+
+# Or with pip
+pip install uv
+```
+
+**3) Create environment and install**
+```bash
+# Create virtual environment
+uv venv
+source .venv/bin/activate  # Linux/macOS
+# or: .venv\Scripts\activate  # Windows
+
+# Install causality package (CPU-only PyTorch)
+uv pip install -e .
+
+# OR install with CUDA support (requires system CUDA 11.8)
+uv pip install -e ".[cuda]"
+
+# Install external dependencies
+cd external/BISCUIT
+# Create minimal setup.py for BISCUIT
+python - << 'PY'
+from setuptools import setup, find_packages
+setup(name='biscuit', version='0.1', packages=find_packages())
+PY
+uv pip install -e .
+cd ../..
+
+cd external/sample-efficient-learning-of-concepts
+uv pip install -e .
+cd ../..
+```
+
+**4) Verify installation**
+```bash
+python -c "from causality.data.ithor_loader import load_causality_data; print('✓ Causality package installed')"
+python -c "import biscuit; print('✓ BISCUIT installed')"
+python -c "from permutation_estimator.FeaturePermutationEstimator import FeaturePermutationEstimator; print('✓ Permutation estimators installed')"
+```
+
+---
+
+### Option B: Conda (Traditional)
+
+**1) Clone repositories**
+```bash
+git clone https://github.com/spirosbax/causality.git
+cd causality
+
+# External dependencies
+mkdir -p external
+cd external
+git clone https://github.com/phlippe/BISCUIT
+git clone https://github.com/spirosbax/sample-efficient-learning-of-concepts
+cd ..
+```
+
+**2) Create environment**
+```bash
+# Use environment.yml for Linux or environment_mac.yml for macOS
+conda env create -f environment.yml  # or environment_mac.yml
 conda activate cbmbiscuit
 ```
 
-### 3) Install external packages (editable)
+**3) Install packages**
 ```bash
 # BISCUIT
 cd external/BISCUIT
-# Minimal setup.py for editable install
 python - << 'PY'
 from setuptools import setup, find_packages
 setup(name='biscuit', version='0.1', packages=find_packages())
@@ -37,22 +105,36 @@ PY
 pip install -e .
 cd ../..
 
-# Sample-efficient learning of concepts (permutation estimators)
+# Sample-efficient learning of concepts
 cd external/sample-efficient-learning-of-concepts
 pip install -e .
 cd ../..
 
-# Install main causality package
+# Main causality package
 pip install -e .
 ```
 
-**Verify installation**:
+**4) Verify installation**
 ```bash
-# Test that imports work
 python -c "from causality.data.ithor_loader import load_causality_data; print('✓ Causality package installed')"
 python -c "import biscuit; print('✓ BISCUIT installed')"
 python -c "from permutation_estimator.FeaturePermutationEstimator import FeaturePermutationEstimator; print('✓ Permutation estimators installed')"
 ```
+
+---
+
+### UV vs Conda
+
+**UV advantages:**
+- ⚡ 10-100x faster package resolution
+- 🔒 Reproducible with `uv.lock`
+- 🎯 Modern Python standard (PEP 517/518)
+- 💾 Efficient disk usage
+
+**Conda advantages:**
+- 🔧 Pre-compiled CUDA binaries
+- 📦 System library management
+- 🏢 Widely used in research
 
 ## Data setup
 
